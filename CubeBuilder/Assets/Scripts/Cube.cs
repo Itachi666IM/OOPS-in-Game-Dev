@@ -6,38 +6,24 @@ using TMPro;
 public class Cube : MonoBehaviour
 {
     public string cubeName;
-    public TextMeshProUGUI textDisplay;
+    public TextMeshProUGUI nameDisplay;
     private MaterialList materialHolder;
     // Start is called before the first frame update
     void Start()
     {
         cubeName = "Default";
-        textDisplay.text = cubeName;
         materialHolder = GameObject.Find("MaterialHolder").GetComponent<MaterialList>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
-        {
-            TextDisplayWithName(); //ABSTRACTION
-        }
-
-        if(Input.GetMouseButtonDown(1))
-        {
-            DisableTextDisplay(); //ABSTRACTION
-        }
+        ShowName();
     }
 
-    void TextDisplayWithName()
+    public void ShowName()
     {
-        textDisplay.gameObject.SetActive(true);
-    }
-
-    void DisableTextDisplay()
-    {
-        textDisplay.gameObject.SetActive(false);
+        nameDisplay.text = cubeName;  //ABSTRACTION
     }
 
     //ENCAPSULATION
@@ -54,7 +40,6 @@ public class Cube : MonoBehaviour
 
     public void Change()
     {
-        Material cubeMaterial = GetComponent<Material>();
-        cubeMaterial = materialHolder.MaterialRenderer();
+        GetComponent<MeshRenderer>().material = materialHolder.MaterialRenderer();
     }
 }
